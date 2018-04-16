@@ -60,6 +60,7 @@ shinyUI(
                         ),
                         tabPanel("About",
                                  br(),
+                                 p("Source code: ", a("https://github.com/minh2182000/MCMC_for_GPS", href = "https://github.com/minh2182000/MCMC_for_GPS")),
                                  p("Author: ", a("My Website", href = "https://minhp.weebly.com/"))
                                 
                         )
