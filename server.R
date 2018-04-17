@@ -70,6 +70,34 @@ shinyServer(function(input, output){
     return(layout(plot1, height = 300, width = 600,
                   title = "Random walks of 4 sampling sequences", xaxis = list(title = "Lambda"), yaxis = list(title = "X")))
   })
+  output$G.LambdaSeq = renderPlotly({
+    out = calc()
+    x1 = out$G_sample$x1[1:input$G.n]; lambda1 = out$G_sample$lambda1[1:input$G.n]
+    x2 = out$G_sample$x2[1:input$G.n]; lambda2 = out$G_sample$lambda2[1:input$G.n]
+    x3 = out$G_sample$x3[1:input$G.n]; lambda3 = out$G_sample$lambda3[1:input$G.n]
+    x4 = out$G_sample$x4[1:input$G.n]; lambda4 = out$G_sample$lambda4[1:input$G.n]
+    
+    plot_ly(x = 1:length(lambda1), y = lambda1, type = "scatter", mode = "lines", name = "lambda1", line = list(width = 0.5)) -> plot1
+    add_trace(plot1, x = 1:length(lambda2), y = lambda2, type = "scatter", mode = "lines",  name = "lambda2", line = list(width = 0.5)) -> plot1
+    add_trace(plot1, x = 1:length(lambda3), y = lambda3, type = "scatter", mode = "lines",  name = "lambda3", line = list(width = 0.5)) -> plot1
+    add_trace(plot1, x = 1:length(lambda1), y = lambda4, type = "scatter", mode = "lines",  name = "lambda4", line = list(width = 0.5)) -> plot1
+    return(layout(plot1, height = 300, width = 300,
+                  title = "4 sampling sequences of X", xaxis = list(title = "Lambda"), yaxis = list(title = "X")))
+  })
+  output$G.XSeq = renderPlotly({
+    out = calc()
+    x1 = out$G_sample$x1[1:input$G.n]; lambda1 = out$G_sample$lambda1[1:input$G.n]
+    x2 = out$G_sample$x2[1:input$G.n]; lambda2 = out$G_sample$lambda2[1:input$G.n]
+    x3 = out$G_sample$x3[1:input$G.n]; lambda3 = out$G_sample$lambda3[1:input$G.n]
+    x4 = out$G_sample$x4[1:input$G.n]; lambda4 = out$G_sample$lambda4[1:input$G.n]
+    
+    plot_ly(x = 1:length(x1), y = x1, type = "scatter", mode = "lines", name = "x1", line = list(width = 0.5)) -> plot1
+    add_trace(plot1, x = 1:length(x2), y = x2, type = "scatter", mode = "lines",  name = "x2", line = list(width = 0.5)) -> plot1
+    add_trace(plot1, x = 1:length(x3), y = x3, type = "scatter", mode = "lines",  name = "x3", line = list(width = 0.5)) -> plot1
+    add_trace(plot1, x = 1:length(x4), y = x4, type = "scatter", mode = "lines",  name = "x4", line = list(width = 0.5)) -> plot1
+    return(layout(plot1, height = 300, width = 300,
+                  title = "4 sampling sequences of X", xaxis = list(title = "Lambda"), yaxis = list(title = "X")))
+  })
   
   
   output$MH.nconv = renderText({
@@ -124,6 +152,35 @@ shinyServer(function(input, output){
     return(layout(plot1, height = 300, width = 600,
                   title = "Random walks of 4 sampling sequences", xaxis = list(title = "Lambda"), yaxis = list(title = "X")))
   })
+  output$MH.LambdaSeq = renderPlotly({
+    out = calc()
+    x1 = out$MH_sample$x1[1:input$MH.n]; lambda1 = out$MH_sample$lambda1[1:input$MH.n]
+    x2 = out$MH_sample$x2[1:input$MH.n]; lambda2 = out$MH_sample$lambda2[1:input$MH.n]
+    x3 = out$MH_sample$x3[1:input$MH.n]; lambda3 = out$MH_sample$lambda3[1:input$MH.n]
+    x4 = out$MH_sample$x4[1:input$MH.n]; lambda4 = out$MH_sample$lambda4[1:input$MH.n]
+    
+    plot_ly(x = 1:length(lambda1), y = lambda1, type = "scatter", mode = "lines", name = "lambda1", line = list(width = 0.5)) -> plot1
+    add_trace(plot1, x = 1:length(lambda2), y = lambda2, type = "scatter", mode = "lines",  name = "lambda2", line = list(width = 0.5)) -> plot1
+    add_trace(plot1, x = 1:length(lambda3), y = lambda3, type = "scatter", mode = "lines",  name = "lambda3", line = list(width = 0.5)) -> plot1
+    add_trace(plot1, x = 1:length(lambda1), y = lambda4, type = "scatter", mode = "lines",  name = "lambda4", line = list(width = 0.5)) -> plot1
+    return(layout(plot1, height = 300, width = 300,
+                  title = "4 sampling sequences of Lambda", xaxis = list(title = "Lambda"), yaxis = list(title = "X")))
+  })
+  output$MH.XSeq = renderPlotly({
+    out = calc()
+    x1 = out$MH_sample$x1[1:input$MH.n]; lambda1 = out$MH_sample$lambda1[1:input$MH.n]
+    x2 = out$MH_sample$x2[1:input$MH.n]; lambda2 = out$MH_sample$lambda2[1:input$MH.n]
+    x3 = out$MH_sample$x3[1:input$MH.n]; lambda3 = out$MH_sample$lambda3[1:input$MH.n]
+    x4 = out$MH_sample$x4[1:input$MH.n]; lambda4 = out$MH_sample$lambda4[1:input$MH.n]
+    
+    plot_ly(x = 1:length(x1), y = x1, type = "scatter", mode = "lines", name = "x1", line = list(width = 0.5)) -> plot1
+    add_trace(plot1, x = 1:length(x2), y = x2, type = "scatter", mode = "lines",  name = "x2", line = list(width = 0.5)) -> plot1
+    add_trace(plot1, x = 1:length(x3), y = x3, type = "scatter", mode = "lines",  name = "x3", line = list(width = 0.5)) -> plot1
+    add_trace(plot1, x = 1:length(x4), y = x4, type = "scatter", mode = "lines",  name = "x4", line = list(width = 0.5)) -> plot1
+    return(layout(plot1, height = 300, width = 300,
+                  title = "4 sampling sequences of X", xaxis = list(title = "Lambda"), yaxis = list(title = "X")))
+  })
+  
   
     
  })

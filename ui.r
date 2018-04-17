@@ -25,8 +25,8 @@ shinyUI(
                         ),
                         tabPanel("Gibbs Sampling",
                                  sliderInput("G.n",
-                                             "Number of samples:",
-                                             min = 50,  max = 20000, step = 50, value = 5000),
+                                             "Number of steps:",
+                                             min = 10,  max = 20000, step = 10, value = 5000),
                                  p(textOutput("G.nconv")),
                                  fluidRow(wellPanel(plotlyOutput("G.plot1")), align="center"),
                                  fluidRow(
@@ -38,12 +38,20 @@ shinyUI(
                                    )
                                  )
                                  ,
-                                 fluidRow(wellPanel(plotlyOutput("G.RandomWalk")),  align="center")
+                                 fluidRow(wellPanel(plotlyOutput("G.RandomWalk")),  align="center"),
+                                 fluidRow(
+                                   column(width = 6, align="center",
+                                          wellPanel(plotlyOutput("G.LambdaSeq"))
+                                   ),
+                                   column(width = 6, align="center",
+                                          wellPanel(plotlyOutput("G.XSeq"))
+                                   )
+                                 )
                         ),
-                        tabPanel("Metropolis - Hasting",
+                        tabPanel("Metropolis - Hastings",
                                  sliderInput("MH.n",
-                                             "Number of samples:",
-                                             min = 50,  max = 20000, step = 50, value = 5000),
+                                             "Number of steps:",
+                                             min = 10,  max = 20000, step = 10, value = 5000),
                                  p(textOutput("MH.nconv")),
                                  fluidRow(wellPanel(plotlyOutput("MH.plot1")), align="center"),
                                  fluidRow(
@@ -55,8 +63,15 @@ shinyUI(
                                    )
                                  )
                                  ,
-                                 fluidRow(wellPanel(plotlyOutput("MH.RandomWalk")),  align="center")
-                                 
+                                 fluidRow(wellPanel(plotlyOutput("MH.RandomWalk")),  align="center"),
+                                 fluidRow(
+                                   column(width = 6, align="center",
+                                          wellPanel(plotlyOutput("MH.LambdaSeq"))
+                                   ),
+                                   column(width = 6, align="center",
+                                          wellPanel(plotlyOutput("MH.XSeq"))
+                                   )
+                                 )
                         ),
                         tabPanel("About",
                                  br(),
