@@ -3,6 +3,12 @@ source("SIM.r")
 
 # server
 shinyServer(function(input, output){
+  # -------- default values --------
+  ReactValue = reactiveValues(default = 0)
+  observeEvent(input$gobutton,{
+    ReactValue$default <- input$gobutton
+  })
+  
   # -------- get inputs -----------
   calc = eventReactive(input$gobutton,{
     print("button clicked")
@@ -19,11 +25,21 @@ shinyServer(function(input, output){
   
   # -------- output --------------
   output$G.nconv = renderText({
-    out = calc()
+    if (ReactValue$default == 0){
+      out = list(G_sample = get("G_sample", envir = .GlobalEnv),
+                 MH_sample = get("MH_sample", envir = .GlobalEnv))
+    } else {
+      out = calc()
+    }
     return(paste("number of samples to convergence:", out$G_sample$conv.n))
   })
   output$G.plot1 = renderPlotly({
-    out = calc()
+    if (ReactValue$default == 0){
+      out = list(G_sample = get("G_sample", envir = .GlobalEnv),
+                 MH_sample = get("MH_sample", envir = .GlobalEnv))
+    } else {
+      out = calc()
+    }
     x = out$G_sample$x1[1:input$G.n]; lambda = out$G_sample$lambda1[1:input$G.n]
     xseq = seq(0,12,0.1)
     cdf = pgamma2(xseq, shape1, scale1, shape2, scale2, p)
@@ -34,7 +50,12 @@ shinyServer(function(input, output){
                   title = "CDF of Lambda", xaxis = list(title = "Lambda"), yaxis = list(title = "Probability")))
   })
   output$G.plot2 = renderPlotly({
-    out = calc()
+    if (ReactValue$default == 0){
+      out = list(G_sample = get("G_sample", envir = .GlobalEnv),
+                 MH_sample = get("MH_sample", envir = .GlobalEnv))
+    } else {
+      out = calc()
+    }
     x = out$G_sample$x1[1:input$G.n]; lambda = out$G_sample$lambda1[1:input$G.n]
     xseq = seq(0,12,0.1)
     cdf = pnbinom2(xseq, shape1, scale1, shape2, scale2, p)
@@ -45,7 +66,12 @@ shinyServer(function(input, output){
            title = "CDF of X", xaxis = list(title = "X"), yaxis = list(title = "Probability")))
   })
   output$G.plot3 = renderPlotly({
-    out = calc()
+    if (ReactValue$default == 0){
+      out = list(G_sample = get("G_sample", envir = .GlobalEnv),
+                 MH_sample = get("MH_sample", envir = .GlobalEnv))
+    } else {
+      out = calc()
+    }
     x = out$G_sample$x1[1:input$G.n]; lambda = out$G_sample$lambda1[1:input$G.n]
     pmf = dnbinom2(0:12, shape1, scale1, shape2, scale2, p); names(pmf) = 0:12
     plot_ly(x = 0:12, y = pmf, type = "bar", name = "True") -> plot3
@@ -55,7 +81,12 @@ shinyServer(function(input, output){
                   title = "Histogram of X", xaxis = list(title = "X"), yaxis = list(title = "Probability")))
   })
   output$G.RandomWalk = renderPlotly({
-    out = calc()
+    if (ReactValue$default == 0){
+      out = list(G_sample = get("G_sample", envir = .GlobalEnv),
+                 MH_sample = get("MH_sample", envir = .GlobalEnv))
+    } else {
+      out = calc()
+    }
     x1 = out$G_sample$x1[1:input$G.n]; lambda1 = out$G_sample$lambda1[1:input$G.n]
     x2 = out$G_sample$x2[1:input$G.n]; lambda2 = out$G_sample$lambda2[1:input$G.n]
     x3 = out$G_sample$x3[1:input$G.n]; lambda3 = out$G_sample$lambda3[1:input$G.n]
@@ -71,7 +102,12 @@ shinyServer(function(input, output){
                   title = "Random walks of 4 sampling sequences", xaxis = list(title = "Lambda"), yaxis = list(title = "X")))
   })
   output$G.LambdaSeq = renderPlotly({
-    out = calc()
+    if (ReactValue$default == 0){
+      out = list(G_sample = get("G_sample", envir = .GlobalEnv),
+                 MH_sample = get("MH_sample", envir = .GlobalEnv))
+    } else {
+      out = calc()
+    }
     x1 = out$G_sample$x1[1:input$G.n]; lambda1 = out$G_sample$lambda1[1:input$G.n]
     x2 = out$G_sample$x2[1:input$G.n]; lambda2 = out$G_sample$lambda2[1:input$G.n]
     x3 = out$G_sample$x3[1:input$G.n]; lambda3 = out$G_sample$lambda3[1:input$G.n]
@@ -85,7 +121,12 @@ shinyServer(function(input, output){
                   title = "4 sampling sequences of X", xaxis = list(title = "Lambda"), yaxis = list(title = "X")))
   })
   output$G.XSeq = renderPlotly({
-    out = calc()
+    if (ReactValue$default == 0){
+      out = list(G_sample = get("G_sample", envir = .GlobalEnv),
+                 MH_sample = get("MH_sample", envir = .GlobalEnv))
+    } else {
+      out = calc()
+    }
     x1 = out$G_sample$x1[1:input$G.n]; lambda1 = out$G_sample$lambda1[1:input$G.n]
     x2 = out$G_sample$x2[1:input$G.n]; lambda2 = out$G_sample$lambda2[1:input$G.n]
     x3 = out$G_sample$x3[1:input$G.n]; lambda3 = out$G_sample$lambda3[1:input$G.n]
@@ -101,11 +142,21 @@ shinyServer(function(input, output){
   
   
   output$MH.nconv = renderText({
-    out = calc()
+    if (ReactValue$default == 0){
+      out = list(G_sample = get("G_sample", envir = .GlobalEnv),
+                 MH_sample = get("MH_sample", envir = .GlobalEnv))
+    } else {
+      out = calc()
+    }
     return(paste("number of samples to convergence:", out$MH_sample$conv.n))
   })
   output$MH.plot1 = renderPlotly({
-    out = calc()
+    if (ReactValue$default == 0){
+      out = list(G_sample = get("G_sample", envir = .GlobalEnv),
+                 MH_sample = get("MH_sample", envir = .GlobalEnv))
+    } else {
+      out = calc()
+    }
     x = out$MH_sample$x1[1:input$MH.n]; lambda = out$MH_sample$lambda1[1:input$MH.n]
     xseq = seq(0,12,0.1)
     cdf = pgamma2(xseq, shape1, scale1, shape2, scale2, p)
@@ -116,7 +167,12 @@ shinyServer(function(input, output){
                   title = "CDF of Lambda", xaxis = list(title = "Lambda"), yaxis = list(title = "Probability")))
   })
   output$MH.plot2 = renderPlotly({
-    out = calc()
+    if (ReactValue$default == 0){
+      out = list(G_sample = get("G_sample", envir = .GlobalEnv),
+                 MH_sample = get("MH_sample", envir = .GlobalEnv))
+    } else {
+      out = calc()
+    }
     x = out$G_sample$x1[1:input$MH.n]; lambda = out$G_sample$lambda1[1:input$MH.n]
     xseq = seq(0,12,0.1)
     cdf = pnbinom2(xseq, shape1, scale1, shape2, scale2, p)
@@ -127,7 +183,12 @@ shinyServer(function(input, output){
                   title = "CDF of X", xaxis = list(title = "X"), yaxis = list(title = "Probability")))
   })
   output$MH.plot3 = renderPlotly({
-    out = calc()
+    if (ReactValue$default == 0){
+      out = list(G_sample = get("G_sample", envir = .GlobalEnv),
+                 MH_sample = get("MH_sample", envir = .GlobalEnv))
+    } else {
+      out = calc()
+    }
     x = out$G_sample$x1[1:input$MH.n]; lambda = out$MH_sample$lambda1[1:input$G.n]
     pmf = dnbinom2(0:12, shape1, scale1, shape2, scale2, p); names(pmf) = 0:12
     plot_ly(x = 0:12, y = pmf, type = "bar", name = "True") -> plot3
@@ -137,7 +198,12 @@ shinyServer(function(input, output){
                   title = "Histogram of X", xaxis = list(title = "X"), yaxis = list(title = "Probability")))
   })
   output$MH.RandomWalk = renderPlotly({
-    out = calc()
+    if (ReactValue$default == 0){
+      out = list(G_sample = get("G_sample", envir = .GlobalEnv),
+                 MH_sample = get("MH_sample", envir = .GlobalEnv))
+    } else {
+      out = calc()
+    }
     x1 = out$MH_sample$x1[1:input$MH.n]; lambda1 = out$MH_sample$lambda1[1:input$MH.n]
     x2 = out$MH_sample$x2[1:input$MH.n]; lambda2 = out$MH_sample$lambda2[1:input$MH.n]
     x3 = out$MH_sample$x3[1:input$MH.n]; lambda3 = out$MH_sample$lambda3[1:input$MH.n]
@@ -153,7 +219,12 @@ shinyServer(function(input, output){
                   title = "Random walks of 4 sampling sequences", xaxis = list(title = "Lambda"), yaxis = list(title = "X")))
   })
   output$MH.LambdaSeq = renderPlotly({
-    out = calc()
+    if (ReactValue$default == 0){
+      out = list(G_sample = get("G_sample", envir = .GlobalEnv),
+                 MH_sample = get("MH_sample", envir = .GlobalEnv))
+    } else {
+      out = calc()
+    }
     x1 = out$MH_sample$x1[1:input$MH.n]; lambda1 = out$MH_sample$lambda1[1:input$MH.n]
     x2 = out$MH_sample$x2[1:input$MH.n]; lambda2 = out$MH_sample$lambda2[1:input$MH.n]
     x3 = out$MH_sample$x3[1:input$MH.n]; lambda3 = out$MH_sample$lambda3[1:input$MH.n]
@@ -167,7 +238,12 @@ shinyServer(function(input, output){
                   title = "4 sampling sequences of Lambda", xaxis = list(title = "Lambda"), yaxis = list(title = "X")))
   })
   output$MH.XSeq = renderPlotly({
-    out = calc()
+    if (ReactValue$default == 0){
+      out = list(G_sample = get("G_sample", envir = .GlobalEnv),
+                 MH_sample = get("MH_sample", envir = .GlobalEnv))
+    } else {
+      out = calc()
+    }
     x1 = out$MH_sample$x1[1:input$MH.n]; lambda1 = out$MH_sample$lambda1[1:input$MH.n]
     x2 = out$MH_sample$x2[1:input$MH.n]; lambda2 = out$MH_sample$lambda2[1:input$MH.n]
     x3 = out$MH_sample$x3[1:input$MH.n]; lambda3 = out$MH_sample$lambda3[1:input$MH.n]

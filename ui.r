@@ -1,5 +1,7 @@
 library(shiny)
 library(plotly)
+load("default_sims.RData", envir = .GlobalEnv)
+
 shinyUI(
   fluidPage(br(),
           # Title
@@ -21,7 +23,13 @@ shinyUI(
           mainPanel(
             br(),
             tabsetPanel(type = "tabs",
-                        tabPanel("Description"
+                        tabPanel("Description",
+                                 p("This is an illustration of Gibbs Sampling and Metropolis - Hastings (MH) algorithm using the Gamma-Poisson Shrinkage Model (GPS), which is a popular hierarchical model for the problem of association study between drugs and adverse events."),
+                                 tags$b("Instruction:"), p(paste("Click on tab Gibbs Sampling or Metropolis - Hastings, modify number of steps, and observe convergence. ",
+                                 "You can modify parameters then click simulate to run again (will take about 2 minutes).")),
+                                 tags$b("Details:"),
+                                 tags$iframe(style="height:600px; width:100%", src="https://minhp.weebly.com/uploads/1/1/8/7/118740971/mcmc_app.pdf")
+                        
                         ),
                         tabPanel("Gibbs Sampling",
                                  sliderInput("G.n",
