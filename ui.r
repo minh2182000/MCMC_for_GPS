@@ -5,7 +5,7 @@ load("default_sims.RData", envir = .GlobalEnv)
 shinyUI(
   fluidPage(br(),
           # Title
-          titlePanel("MCMC"),
+          titlePanel("Markov Chain Monte Carlo Illustration"),
           sidebarPanel( width = 2,
             p("Set Parameters:"),
             # ------ inputs -------------------------------

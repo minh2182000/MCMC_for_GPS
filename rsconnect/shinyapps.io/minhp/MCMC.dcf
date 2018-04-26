@@ -5,6 +5,6 @@ account: minhp
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 324168
-bundleId: 1334997
+bundleId: 1341816
 url: https://minhp.shinyapps.io/MCMC/
-when: 1524547187.18103
+when: 1524782411.41577

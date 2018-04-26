@@ -257,9 +257,13 @@ shinyServer(function(input, output){
                   title = "4 sampling sequences of X", xaxis = list(title = "Lambda"), yaxis = list(title = "X")))
   })
   
+  # -------- display outputs when app initiates ------
+  lapply(c("G.nconv", "G.plot1", "G.plot2", "G.plot3", "G.RandomWalk", "G.LambdaSeq", "G.XSeq",
+           "MH.nconv", "MH.plot1", "MH.plot2", "MH.plot3", "MH.RandomWalk", "MH.LambdaSeq", "MH.XSeq"),
+         function(x) outputOptions(output, x, suspendWhenHidden = FALSE))
   
     
- })
+})
 
 
 
